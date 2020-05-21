@@ -3,7 +3,6 @@ include("../src/PBCM.jl")
 cell_general = cell_default()
 cell_design_op = cylindrical_cell_designer(cell_general)
 cost = cost_default()
-cell_design_op = cylindrical_cell_designer(cell_general)
 
 include("../unit_conversion_file.jl")
 
