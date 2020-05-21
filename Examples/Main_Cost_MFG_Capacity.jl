@@ -1,9 +1,11 @@
-include("src/Main_Include.jl")
-include("Cell_Design_Inputs.jl")
-include("Cost_Inputs.jl")
-include("Cell_Design_Inputs.jl")
+include("../src/PBCM.jl")
+
+cell_general = cell_default()
 cell_design_op = cylindrical_cell_designer(cell_general)
-include("src/Units.jl")
+cost = cost_default()
+cell_design_op = cylindrical_cell_designer(cell_general)
+
+include("../unit_conversion_file.jl")
 
 
 using PyPlot

@@ -34,7 +34,6 @@ mutable struct struct_electrode
 end
 
 
-
 mutable struct struct_cell_general
     form_factor::String              # ["Cyl","Pris","Pou"]
     size::String                     # ["18650", "21700", etc]

@@ -161,6 +161,9 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
                        number_of_cells_adjusted_for_yield, positive_active_material_kg_per_year,
                        negative_active_material_kg_per_year, total_positive_binder_solvent_evaporated,
                        total_negative_binder_solvent_evaporated)
+
+      baseline_cell_assembly_data = cost.manufacturing_costs
+
       count = 0
       total_dir_labor = 0
       labor_data = []
@@ -454,13 +457,13 @@ function cost_calc(cell, cost ; system, cost_verbosity)
   total_positive_active_material,
   unit_cost_positive_active_material,
   cost_per_cell_positive_active_material = AM(cell_design_op.mass_cathode_AM, cost.cell_costs.cathode,
-                                              total_units_mfg_per_year, cost.cell_costs.cathode.baseline_AM_required, cell_costs.cell_yield)
+                                              total_units_mfg_per_year, cost.cell_costs.cathode.baseline_AM_required, cost.cell_costs.cell_yield)
 
   mass_negative_active_material_per_cell,
   total_negative_active_material,
   unit_cost_negative_active_material,
   cost_per_cell_negative_active_material = AM(cell_design_op.mass_anode_AM, cost.cell_costs.anode,
-                                              total_units_mfg_per_year, cost.cell_costs.anode.baseline_AM_required, cell_costs.cell_yield)
+                                              total_units_mfg_per_year, cost.cell_costs.anode.baseline_AM_required, cost.cell_costs.cell_yield)
 
 
   mass_conductive_positive_per_cell,
@@ -468,14 +471,14 @@ function cost_calc(cell, cost ; system, cost_verbosity)
   unit_cost_carbon,
   cost_per_cell_positive_conductive = cond(cell_design_op.mass_cathode_AM, cost.cell_costs.cathode, cell.cathode,
                                           total_units_mfg_per_year, cost.cell_costs.cathode.baseline_AM_required,
-                                          total_positive_active_material, cell_costs.cell_yield)
+                                          total_positive_active_material, cost.cell_costs.cell_yield)
 
   mass_conductive_negative_per_cell,
   total_mass_negative_conductive,
   unit_cost_carbon_black,
   cost_per_cell_negative_conductive = cond(cell_design_op.mass_anode_AM, cost.cell_costs.anode, cell.anode,
                                            total_units_mfg_per_year, cost.cell_costs.anode.baseline_AM_required,
-                                           total_negative_active_material, cell_costs.cell_yield)
+                                           total_negative_active_material, cost.cell_costs.cell_yield)
 
 
   mass_binder_positive_per_cell,
@@ -483,21 +486,21 @@ function cost_calc(cell, cost ; system, cost_verbosity)
   unit_cost_binder_PVDF,
   cost_per_cell_positive_binder = bind(cell_design_op.mass_cathode_AM, cost.cell_costs.cathode, cell.cathode,
                                        total_units_mfg_per_year, cost.cell_costs.cathode.baseline_AM_required,
-                                       total_positive_active_material, cell_costs.cell_yield)
+                                       total_positive_active_material, cost.cell_costs.cell_yield)
 
   mass_binder_negative_per_cell,
   total_mass_negative_binder,
   unit_cost_negative_binder,
   cost_per_cell_negative_binder = bind(cell_design_op.mass_anode_AM, cost.cell_costs.anode, cell.anode,
                                        total_units_mfg_per_year, cost.cell_costs.anode.baseline_AM_required,
-                                       total_negative_active_material, cell_costs.cell_yield)
+                                       total_negative_active_material, cost.cell_costs.cell_yield)
 
 
 
   positive_current_collector_area_per_cell,
   total_positive_current_collector_area,
   unit_cost_positive_current_collector,
-  cost_per_cell_positive_current_collector = CC(cell_design_op.pos_CC_area, cell_costs.cell_yield,
+  cost_per_cell_positive_current_collector = CC(cell_design_op.pos_CC_area, cost.cell_costs.cell_yield,
                                                 cost.cell_costs.cathode, cost.baseline.electrode_area,
                                                 total_units_mfg_per_year, electrode_area_per_year)
 
@@ -505,35 +508,35 @@ function cost_calc(cell, cost ; system, cost_verbosity)
   negative_current_collector_area_per_cell,
   total_negative_current_collector_area,
   unit_cost_negative_current_collector,
-  cost_per_cell_negative_current_collector = CC(cell_design_op.neg_CC_area, cell_costs.cell_yield,
+  cost_per_cell_negative_current_collector = CC(cell_design_op.neg_CC_area, cost.cell_costs.cell_yield,
                                                 cost.cell_costs.cathode, cost.baseline.electrode_area,
                                                 total_units_mfg_per_year, electrode_area_per_year)
 
   separator_area_per_cell,
   total_separator_area,
   unit_cost_separator,
-  cost_per_cell_separator = sep(cell_design_op.sep_area, cell_costs, cell_costs.cell_yield,
+  cost_per_cell_separator = sep(cell_design_op.sep_area, cost.cell_costs, cost.cell_costs.cell_yield,
                                 total_units_mfg_per_year, cost.baseline.electrode_area,
                                 electrode_area_per_year)
 
   electrolyte_per_cell,
   total_electrolyte_volume,
   unit_cost_electrolyte,
-  cost_per_cell_electrolyte = electrolyte(cell_design_op.electrolyte_volm, cell_costs,
-                                          cell_costs.cell_yield, total_units_mfg_per_year)
+  cost_per_cell_electrolyte = electrolyte(cell_design_op.electrolyte_volm, cost.cell_costs,
+                                          cost.cell_costs.cell_yield, total_units_mfg_per_year)
 
   total_positive_terminal_assemblies,
   unit_cost_positive_terminal,
-  cost_per_cell_positive_terminal_assembly = ta(total_units_mfg_per_year, cell_costs.cell_yield, cost.cell_costs.cathode, struct_baseline)
+  cost_per_cell_positive_terminal_assembly = ta(total_units_mfg_per_year, cost.cell_costs.cell_yield, cost.cell_costs.cathode, struct_baseline)
 
   total_negative_terminal_assemblies,
   unit_cost_negative_terminal,
-  cost_per_cell_negative_terminal_assembly = ta(total_units_mfg_per_year, cell_costs.cell_yield, cost.cell_costs.anode, struct_baseline)
+  cost_per_cell_negative_terminal_assembly = ta(total_units_mfg_per_year, cost.cell_costs.cell_yield, cost.cell_costs.anode, struct_baseline)
 
   total_cell_containers,
   total_aluminum_thermal_conductors,
   unit_cost_cell_container,
-  cost_per_cell_cell_container = can_al_condr(total_units_mfg_per_year,cell_costs.cell_yield, cell_costs, struct_baseline)
+  cost_per_cell_cell_container = can_al_condr(total_units_mfg_per_year,cost.cell_costs.cell_yield, cost.cell_costs, struct_baseline)
 
 
 
