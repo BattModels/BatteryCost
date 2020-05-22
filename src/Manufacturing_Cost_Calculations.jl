@@ -180,10 +180,11 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
 
       process_names = fieldnames(typeof(baseline_cell_assembly_data))
 
-      dry_room_processes = [:cell_stacking,:current_collector_welding,
+
+      dry_room_processes = [:cell_stacking,:CC_welding,
                             :cell_insertion_container,
                             :electrolyte_filling_and_cell_sealing,
-                            :inter_process_material_handling]
+                            :intr_process_mat_handling]
 
       for process in process_names
           # print("\n")
@@ -203,6 +204,10 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
               total_cap_equip += getfield(baseline_cell_assembly_data, process)[2,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[2,2])
               total_pl_area   += getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2])
 
+              # print("\n", process, "  <--> ", " Direct labor: ",getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
+              # print("\n", process, "  <--> ", "  Plant Area: ", getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2]))
+              # print("\n", process, "  <--> ", "  Cap Equip: ",  getfield(baseline_cell_assembly_data, process)[2,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[2,2]))
+
               append!(labor_data, getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
           # print("\n\n\n    Test -- ",total_dir_labor, "     ", typeof(total_dir_labor))
 
@@ -219,6 +224,10 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
               total_cap_equip += getfield(baseline_cell_assembly_data, process)[2,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[2,2])
               total_pl_area   += getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2])
 
+              # print("\n", process, "  <--> ", " Direct labor: ",getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
+              # print("\n", process, "  <--> ", "  Plant Area: ", getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2]))
+              # print("\n", process, "  <--> ", "  Cap Equip: ",  getfield(baseline_cell_assembly_data, process)[2,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[2,2]))
+
               append!(labor_data, getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
 
           elseif getfield(baseline_cell_assembly_data, process)[4,1] == 3.0
@@ -231,6 +240,10 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
               total_cap_equip += getfield(baseline_cell_assembly_data, process)[2,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[2,2])
               total_pl_area   += getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2])
 
+              # print("\n", process, "  <--> ", " Direct labor: ",getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
+              # print("\n", process, "  <--> ", "  Plant Area: ", getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2]))
+              # print("\n", process, "  <--> ", "  Cap Equip: ",  getfield(baseline_cell_assembly_data, process)[2,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[2,2]))
+
               append!(labor_data, getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
 
           elseif getfield(baseline_cell_assembly_data, process)[4,1] == 4.0 && getfield(baseline_cell_assembly_data, process)[4,2] == 0.0
@@ -242,6 +255,10 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
               total_dir_labor += getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2])
               total_cap_equip += getfield(baseline_cell_assembly_data, process)[2,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[2,2])
               total_pl_area   += getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2])
+
+              # print("\n", process, "  <--> ", " Direct labor: ",getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
+              # print("\n", process, "  <--> ", "  Plant Area: ", getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2]))
+              # print("\n", process, "  <--> ", "  Cap Equip: ",  getfield(baseline_cell_assembly_data, process)[2,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[2,2]))
 
               append!(labor_data, getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
 
@@ -273,6 +290,10 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
 
               total_pl_area += getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2])
 
+              # print("\n", process, "  <--> ", " Direct labor: ",getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
+              # print("\n", process, "  <--> ", "  Plant Area: ", getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2]))
+              # print("\n", process, "  <--> ", "  Cap Equip: ",  getfield(baseline_cell_assembly_data, process)[2,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[2,2]))
+
               append!(labor_data, getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
 
           elseif getfield(baseline_cell_assembly_data, process)[4,1] == 5.0
@@ -285,6 +306,10 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
               total_cap_equip += getfield(baseline_cell_assembly_data, process)[2,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[2,2])
               total_pl_area   += getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2])
 
+              # print("\n", process, "  <--> ", " Direct labor: ",getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
+              # print("\n", process, "  <--> ", "  Plant Area: ", getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2]))
+              # print("\n", process, "  <--> ", "  Cap Equip: ",  getfield(baseline_cell_assembly_data, process)[2,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[2,2]))
+
               append!(labor_data, getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
 
           elseif getfield(baseline_cell_assembly_data, process)[4,1] == 6.0 && getfield(baseline_cell_assembly_data, process)[4,2] == 0.0
@@ -295,6 +320,10 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
               total_dir_labor += getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2])
               total_cap_equip += getfield(baseline_cell_assembly_data, process)[2,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[2,2])
               total_pl_area   += getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2])
+
+              # print("\n", process, "  <--> ", " Direct labor: ",getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
+              # print("\n", process, "  <--> ", "  Plant Area: ", getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2]))
+              # print("\n", process, "  <--> ", "  Cap Equip: ",  getfield(baseline_cell_assembly_data, process)[2,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[2,2]))
 
               append!(labor_data, getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
 
@@ -317,6 +346,10 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
 
               total_pl_area   += getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2])
 
+              # print("\n", process, "  <--> ", " Direct labor: ",getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
+              # print("\n", process, "  <--> ", "  Plant Area: ", getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2]))
+              # print("\n", process, "  <--> ", "  Cap Equip: ",  getfield(baseline_cell_assembly_data, process)[2,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[2,2]))
+
               append!(labor_data, getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
 
           elseif getfield(baseline_cell_assembly_data, process)[4,1] == 6.0 && getfield(baseline_cell_assembly_data, process)[4,2] == 3.0
@@ -326,6 +359,10 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
               total_cap_equip +=
               total_pl_area   += getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2])
 
+              # print("\n", process, "  <--> ", " Direct labor: ",getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
+              # print("\n", process, "  <--> ", "  Plant Area: ", getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2]))
+              # print("\n", process, "  <--> ", "  Cap Equip: ",  getfield(baseline_cell_assembly_data, process)[2,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[2,2]))
+
               append!(labor_data, getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
 
 
@@ -334,10 +371,16 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
               continue
           end
 
-          if process == :inter_process_material_handling
+          if process == :intr_process_mat_handling
             dry_room_area += (getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2]))/3.0
+
+            # print("\n\n\n\ndry_room_area = ",dry_room_area, "   count: ", count)
+            # print("\n\n\n\n", process, "  <--> ", "  Plant Area: ", getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2]))
+
           elseif process in dry_room_processes
             dry_room_area += getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2])
+            # print("\n", process, "  <--> ", "  Plant Area: ", getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2]))
+            # print("\n\n\n\ndry_room_area = ",dry_room_area, "   count: ", count)
           end
 
       end
@@ -349,12 +392,15 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
 
         volm_ratio = dry_room_area/cost.baseline.dry_room_area
 
-
         total_dir_labor += getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2])
         total_cap_equip += getfield(baseline_cell_assembly_data, process)[2,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[2,2])
         total_pl_area   += getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2])
 
-                                append!(labor_data, getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
+        # print("\n", process, "  <--> ", " Direct labor: ",getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
+        # print("\n", process, "  <--> ", "  Plant Area: ", getfield(baseline_cell_assembly_data, process)[3,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[3,2]))
+        # print("\n", process, "  <--> ", "  Cap Equip: ",  getfield(baseline_cell_assembly_data, process)[2,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[2,2]))
+
+        append!(labor_data, getfield(baseline_cell_assembly_data, process)[1,1] * (volm_ratio ^ getfield(baseline_cell_assembly_data, process)[1,2]))
       else
         @warn("No Dry Room Control")
       end
@@ -509,7 +555,7 @@ function cost_calc(cell, cost ; system, cost_verbosity)
   total_negative_current_collector_area,
   unit_cost_negative_current_collector,
   cost_per_cell_negative_current_collector = CC(cell_design_op.neg_CC_area, cost.cell_costs.cell_yield,
-                                                cost.cell_costs.cathode, cost.baseline.electrode_area,
+                                                cost.cell_costs.anode, cost.baseline.electrode_area,
                                                 total_units_mfg_per_year, electrode_area_per_year)
 
   separator_area_per_cell,
@@ -543,7 +589,7 @@ function cost_calc(cell, cost ; system, cost_verbosity)
                             #####################     Direct Material Costs     #####################
 
 
-  mass_binder_solvent_NMP_per_cell = (cost.cell_costs.cathode.solvent[1]) * (mass_binder_positive_per_cell)                           # in kg
+  mass_binder_solvent_NMP_per_cell = (cost.cell_costs.cathode.bind_mult[1]) * (mass_binder_positive_per_cell)                           # in kg
 
   positive_dry_mass_per_cell =
     mass_positive_active_material_per_cell +
@@ -551,7 +597,7 @@ function cost_calc(cell, cost ; system, cost_verbosity)
     mass_binder_positive_per_cell
 
 
-  mass_binder_solvent_water_per_cell = (cost.cell_costs.anode.solvent) * (mass_binder_negative_per_cell)                              # in kg
+  mass_binder_solvent_water_per_cell = (cost.cell_costs.anode.bind_mult[1]) * (mass_binder_negative_per_cell)                              # in kg
 
   negative_dry_mass_per_cell =
     mass_negative_active_material_per_cell +
@@ -733,18 +779,18 @@ function cost_calc(cell, cost ; system, cost_verbosity)
           println("\n\n************************************************ Direct Materials Costs ************************************************")
           println("\n\tTotal Cell Materials per Accepted Cell Yield")
           println("\n\t\tPositive Electrode Materials (dry), grams")
-          println("\t\t\tmass_positive_active_material_per_cell   = \t ", mass_positive_active_material_per_cell, "\t\t grams")
-          println("\t\t\tmass_conductive_positive_per_cell        = \t ", mass_conductive_positive_per_cell, "\t\t grams")
-          println("\t\t\tmass_binder_positive_per_cell            = \t ", mass_binder_positive_per_cell, "\t\t grams")
-          println("\t\t\tmass_binder_solvent_NMP_per_cell         = \t ", mass_binder_solvent_NMP_per_cell, "\t\t grams")
-          println("\t\t\tpositive_dry_mass_per_cell               = \t ", positive_dry_mass_per_cell, "\t\t grams")
+          println("\t\t\tmass_positive_active_material_per_cell   = \t ", mass_positive_active_material_per_cell, "\t\t kg")
+          println("\t\t\tmass_conductive_positive_per_cell        = \t ", mass_conductive_positive_per_cell, "\t\t kg")
+          println("\t\t\tmass_binder_positive_per_cell            = \t ", mass_binder_positive_per_cell, "\t\t kg")
+          println("\t\t\tmass_binder_solvent_NMP_per_cell         = \t ", mass_binder_solvent_NMP_per_cell, "\t\t kg")
+          println("\t\t\tpositive_dry_mass_per_cell               = \t ", positive_dry_mass_per_cell, "\t\t kg")
 
           println("\n\t\tNegative Electrode Materials (dry), grams")
-          println("\t\t\tmass_negative_active_material_per_cell   = \t ", mass_negative_active_material_per_cell, "\t\t grams")
-          println("\t\t\tmass_conductive_negative_per_cell        = \t ", mass_conductive_negative_per_cell, "\t\t grams")
-          println("\t\t\tmass_binder_negative_per_cell            = \t ", mass_binder_negative_per_cell, "\t\t grams")
-          println("\t\t\tmass_binder_solvent_water_per_cell       = \t ", mass_binder_solvent_water_per_cell, "\t\t grams")
-          println("\t\t\tnegative_dry_mass_per_cell               = \t ", negative_dry_mass_per_cell, "\t\t grams")
+          println("\t\t\tmass_negative_active_material_per_cell   = \t ", mass_negative_active_material_per_cell, "\t\t kg")
+          println("\t\t\tmass_conductive_negative_per_cell        = \t ", mass_conductive_negative_per_cell, "\t\t kg")
+          println("\t\t\tmass_binder_negative_per_cell            = \t ", mass_binder_negative_per_cell, "\t\t kg")
+          println("\t\t\tmass_binder_solvent_water_per_cell       = \t ", mass_binder_solvent_water_per_cell, "\t\t kg")
+          println("\t\t\tnegative_dry_mass_per_cell               = \t ", negative_dry_mass_per_cell, "\t\t kg")
 
           println("\n\t\tpositive_current_collector_area_per_cell = \t ", positive_current_collector_area_per_cell, "\t\t m2")
           println("\t\tnegative_current_collector_area_per_cell   = \t ", negative_current_collector_area_per_cell, "\t\t m2")
@@ -773,7 +819,7 @@ function cost_calc(cell, cost ; system, cost_verbosity)
           println("\t\tpositive terminal assemblies         = \t " , total_positive_terminal_assemblies, " \t\t/year")
           println("\t\tnegative terminal assemblies         = \t " , total_negative_terminal_assemblies, " \t\t/year")
 
-          println("\t\tcell containers                      = \t ", total_units_mfg_per_year, "\t\t /year")
+          println("\t\tcell containers                      = \t ", total_cell_containers, "\t\t /year")
           println("\n\t\tpositive binder solvent evaporated = \t ", total_positive_binder_solvent_evaporated, " \t\tkg/year")
           println("\t\tnegative binder solvent evaporateds  = \t ", total_negative_binder_solvent_evaporated, " \t\tkg/year")
 
