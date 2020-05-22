@@ -1,9 +1,10 @@
-include("src/Main_Include.jl")
-include("Cell_Design_Inputs.jl")
-include("Cost_Inputs.jl")
-include("Cell_Design_Inputs.jl")
+include("../src/PBCM.jl")
+
+cell_general = cell_default()
 cell_design_op = cylindrical_cell_designer(cell_general)
-include("src/Units.jl")
+cost = cost_default()
+
+include("../unit_conversion_file.jl")
 
 
 using DiffEqSensitivity
@@ -55,7 +56,7 @@ r = bar3D(x, y, z*0, 0.4, 0.4, z)
 xticks([0,1,2,3], ["No Cells","Cost Pos AM", "Cost Neg AM", "Cost Sep"])
 yticks([1,2,3,4], ["No Cells","Cost Pos AM", "Cost Neg AM", "Cost Sep"])
 
-title("Sensitivity Analysis")
+title(string("GSA: 2nd Order: ", per, "%"))
 zlabel("Sobol Indices")
 figure(2)
 

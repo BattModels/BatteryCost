@@ -1,14 +1,14 @@
-include("src/Main_Include.jl")
-include("Cell_Design_Inputs.jl")
-include("Cost_Inputs.jl")
-include("Cell_Design_Inputs.jl")
-cell_design_op = cylindrical_cell_designer(cell_general)
-include("src/Units.jl")
+include("../src/PBCM.jl")
 
+cell_general = cell_default()
+cell_design_op = cylindrical_cell_designer(cell_general)
+cost = cost_default()
+
+include("../unit_conversion_file.jl")
 
 using DiffEqSensitivity
 
-per = 30
+per = 10
 
 poro = 0.35
 poro_intrvl = [poro*(1 - (per/100)) , poro*(1 + (per/100))]
@@ -47,3 +47,10 @@ gsa_result = gsa(gsa_cost, Sobol(), [poro_intrvl, pos_thic_intrvl, neg_thic_intr
 print("\n")
 S1 = gsa_result.S1
 print(S1)
+clf()
+x = ["Pos Porosity", "Pos Th", "Neg Th", "Cells MFG", "Pos AM Cost"]
+bar(x, S1, color="#0f87bf", align="center", alpha=0.8)
+ylabel("Sobol Indices")
+
+title(string("GSA: 1st Order : ", per, " %"))
+figure(2)

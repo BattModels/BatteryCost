@@ -14,7 +14,8 @@ using PyPlot
 cost.cell_costs.cathode.AM[1] = 17.0
 cell_general.cathode.por      = 0.25
 cell_general.cathode.th       = converter([150.0, mult.pos_th[2], mult.pos_th[3]])
-
+cell_general.design_verbosity = 0
+cost_calc(cell_general, cost, system="Cell", cost_verbosity = 0)
 
 param_x = []
 param_y = []
@@ -30,7 +31,7 @@ end
 # print(param_y)
 
 
-cla()
+clf()
 plot(param_x, param_y)
 xlabel(String("MWh/year"))
 ylabel("Dollars per kWh")

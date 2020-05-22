@@ -296,7 +296,7 @@ function OEM(input_OEM)
 
 
         print("\n\n************************************************ Summary of Unit Costs (USD) ************************************************ ")
-        print("\ntotal_cost_pack_cell_materials     = ",total_unit_cost_all_materials)
+        print("\ntotal_cost_pack_cell_materials     = ",total_cost_materials)
 
         if system == "Pack"
             print("\ntotal purchased items              = ", (cost_per_unit_hardware + total_cost_module_materials + total_cost_pack_materials) ," ")
