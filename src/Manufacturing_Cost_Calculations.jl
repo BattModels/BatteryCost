@@ -344,7 +344,7 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
 
 
 
-function cost_calc(cell, cost ; system, cost_verbosity)
+function cost_calc(cell, cost ; system, cost_verbosity,breakdown=false)
 
 
   #Inputs from Design Routine
@@ -811,6 +811,6 @@ function cost_calc(cell, cost ; system, cost_verbosity)
     # It is called at the bottom of this file or the before the cost function ends.
 
 
-    OEM(inputs_to_OEM)
+    OEM(inputs_to_OEM,breakdown)
 
 end
