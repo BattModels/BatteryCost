@@ -203,6 +203,15 @@ function cylindrical_cell_designer(cell)
    mass_neg_bind, neg_AM_wt_fr, total_coated_length_anode, neg_mass_loading,
    volm_neg_electrode  = electrode_geometry(anode,volm_jellyroll, jellyroll_length,height_jellyroll)
 
+   if cell_general.cathode.por > 1 || cell_general.cathode.por < 0
+        # print(cell_general.cathode.por)
+       @error "Invalid cathode porosity value"
+   end
+
+    if cell_general.anode.por > 1 || cell_general.anode.por < 0
+        print("\n1. Neg por",cell_general.anode.por)
+       @error "Invalid anode porosity value"
+   end
 
     sep_area = 2*(jellyroll_length + max(cathode.extra_length, anode.extra_length)) *                         # cm2
                 height_jellyroll
