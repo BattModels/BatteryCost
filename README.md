@@ -5,4 +5,4 @@ This is a bottom up Process Based Cost Model used for modeling Lithium Ion Batte
 
 This model is part of the BatteryModels.jl Ecosystem.
 
-![](assets/BatteryModelswb.png?raw=true)
+![](assets/batteryModelswb.png?raw=true)
