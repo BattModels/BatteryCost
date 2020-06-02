@@ -6,7 +6,7 @@
 =#
 
 
-function OEM(input_OEM,breakdown)
+function OEM(input_OEM,breakdown,materials_breakdown)
 
 
     cost_per_cell_positive_active_material              = input_OEM[1]                       ##   $/cell
@@ -340,6 +340,26 @@ function OEM(input_OEM,breakdown)
         cell_energy_storage
 
 
+    elseif materials_breakdown
+        cathode_cost =cost_per_cell_positive_active_material+
+            cost_per_cell_positive_current_collector+
+            cost_per_cell_positive_conductive+
+            cost_per_cell_binder_solvent_NMP+
+            cost_per_cell_positive_binder
+
+        anode_cost = cost_per_cell_negative_active_material+
+            cost_per_cell_negative_binder+
+            cost_per_cell_negative_conductive+
+            cost_per_cell_negative_current_collector
+
+        electrolyte_cost = cost_per_cell_electrolyte
+
+        others_cost = cost_per_cell_cell_container+
+            cost_per_cell_negative_terminal_assembly+
+            cost_per_cell_positive_terminal_assembly+
+            cost_per_cell_separator
+        
+        return cathode_cost,anode_cost,electrolyte_cost,others_cost
     else
         return dollars_per_kWh, mfg_capacity
     end
