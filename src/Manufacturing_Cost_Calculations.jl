@@ -344,20 +344,20 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
 
 
 
-function cost_calc(cell, cost ; system, cost_verbosity)
+function cost_calc(cell, cost ; system, cost_verbosity,breakdown=false,materials_breakdown=false)
 
 
   #Inputs from Design Routine
   cell_design_op = cylindrical_cell_designer(cell)
 
-  cell_design_op.energy                       = converter([cell_design_op.energy                    , mult.energy_cell[2]                ,   mult.energy_cell[3]])
-  cell_design_op.mass_cathode_AM              = converter([cell_design_op.mass_cathode_AM           , mult.mass_pos_AM[2]                ,   mult.mass_pos_AM[3]])
-  cell_design_op.mass_anode_AM                = converter([cell_design_op.mass_anode_AM             , mult.mass_neg_AM[2]                ,   mult.mass_neg_AM[3]])
-  cell_design_op.pos_CC_area                  = converter([cell_design_op.pos_CC_area               , mult.pos_CC_area[2]                ,   mult.pos_CC_area[3]])
-  cell_design_op.neg_CC_area                  = converter([cell_design_op.neg_CC_area               , mult.neg_CC_area[2]                ,   mult.neg_CC_area[3]])
-  cell_design_op.sep_area                     = converter([cell_design_op.sep_area                  , mult.sep_area[2]                   ,   mult.sep_area[3]])
-  cell_design_op.electrolyte_volm             = converter([cell_design_op.electrolyte_volm          , mult.electrolyte_volm[2]           ,   mult.electrolyte_volm[3]])
-  cell_design_op.total_coated_area_cathode    = converter([cell_design_op.total_coated_area_cathode , mult.total_coated_area_cathode[2]  ,   mult.total_coated_area_cathode[3]])
+  cell_design_op.energy                       = converter(cell_design_op.energy                    , mult.energy_cell)
+  cell_design_op.mass_cathode_AM              = converter(cell_design_op.mass_cathode_AM           , mult.mass_pos_AM)
+  cell_design_op.mass_anode_AM                = converter(cell_design_op.mass_anode_AM             , mult.mass_neg_AM)
+  cell_design_op.pos_CC_area                  = converter(cell_design_op.pos_CC_area               , mult.pos_CC_area)
+  cell_design_op.neg_CC_area                  = converter(cell_design_op.neg_CC_area               , mult.neg_CC_area)
+  cell_design_op.sep_area                     = converter(cell_design_op.sep_area                  , mult.sep_area)
+  cell_design_op.electrolyte_volm             = converter(cell_design_op.electrolyte_volm          , mult.electrolyte_volm)
+  cell_design_op.total_coated_area_cathode    = converter(cell_design_op.total_coated_area_cathode , mult.total_coated_area_cathode)
 
 
     ######################################################################################################################
@@ -811,6 +811,6 @@ function cost_calc(cell, cost ; system, cost_verbosity)
     # It is called at the bottom of this file or the before the cost function ends.
 
 
-    OEM(inputs_to_OEM)
+    OEM(inputs_to_OEM,breakdown,materials_breakdown)
 
 end

@@ -56,16 +56,88 @@ struct unit_conversion
 end
 
 
+mult = unit_conversion(
+                            1000.0,
+                            1000.0,
+                            1000.0,
+                            1000.0,
 
-function converter(inp)
+                            10000.0,
+                            10000.0,
 
-      if inp[3] == 1
-         inp[1] = inp[1] / inp[2]
+                            10.0,
+                            10.0,
 
-      elseif inp[3] == 0
-         inp[1] = inp[1] * inp[2]
+                            10000.0,
+                            10000.0,
 
-      end
+                            10000.0,
+                            10000.0,
 
-   return inp[1]
+                            10.0,
+                            10.0,
+
+                            10000.0,
+
+                            #---------------------------------------------------------#
+
+                            1000.0,
+                            1000.0,
+                            1000.0,
+                            10000.0,
+                            10000.0,
+                            10000.0,
+                            1000.0,
+                            10000.0,
+
+                            #---------------------------------------------------------#
+
+                            1/1000000.0
+                        )
+
+
+
+function converter(initial_value,mult)
+   return initial_value ./ mult
+end
+
+
+function convert_all(cell_general, cost, mult)
+   cell_general.cathode.fc_sp_cap =
+      converter(cell_general.cathode.fc_sp_cap, mult.fc_pos_sp_cap)
+   cell_general.anode.fc_sp_cap =
+      converter(cell_general.anode.fc_sp_cap, mult.fc_neg_sp_cap)
+   cell_general.cathode.rev_sp_cap =
+      converter(cell_general.cathode.rev_sp_cap, mult.rev_pos_sp_cap)
+   cell_general.anode.rev_sp_cap =
+      converter(cell_general.anode.rev_sp_cap, mult.rev_neg_sp_cap)
+
+   cell_general.cathode.th = converter(cell_general.cathode.th, mult.pos_th)
+   cell_general.anode.th = converter(cell_general.anode.th, mult.neg_th)
+
+   cell_general.cathode.extra_length =
+      converter(cell_general.cathode.extra_length, mult.pos_extra_l)
+   cell_general.anode.extra_length =
+      converter(cell_general.anode.extra_length, mult.neg_extra_l)
+
+   cell_general.cathode.CC_th =
+      converter(cell_general.cathode.CC_th, mult.pos_CC_th)
+   cell_general.anode.CC_th =
+      converter(cell_general.anode.CC_th, mult.neg_CC_th)
+
+   cell_general.cathode.tab_th =
+      converter(cell_general.cathode.tab_th, mult.pos_tab_t)
+   cell_general.anode.tab_th =
+      converter(cell_general.anode.tab_th, mult.neg_tab_t)
+
+   cell_general.cathode.tab_width =
+      converter(cell_general.cathode.tab_width, mult.pos_tab_width)
+   cell_general.anode.tab_width =
+      converter(cell_general.anode.tab_width, mult.neg_tab_width)
+
+   cell_general.sep_th = converter(cell_general.sep_th, mult.sep_th)
+
+   cost.general_costs.no_units_mfg =
+      converter(cost.general_costs.no_units_mfg, mult.units_mfg)
+   return cell_general, cost
 end

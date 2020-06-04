@@ -1,29 +1,81 @@
 
-nca_default() = struct_electrode("NCA",              # Chemistry type
+nca_default() = struct_electrode(    "NCA",         # Chemistry type
 
-                              0.03,                 # binder weight fraction
-                              0.03,                 # conductive weight fraction
+                                      0.03,         # binder weight fraction
+                                      0.03,         # conductive weight fraction
 
-                              4.71,                 # AM density
-                              1.77,                 # binder density
-                              1.77,                 # conductive density
+                                      4.71,         # AM density
+                                      1.77,         # binder density
+                                      1.77,         # conductive density
 
-                              192.0,                # first charge specific capacity
-                              180.0,                # reversible specific capacity
+                                      192.0,        # first charge specific capacity
+                                      180.0,        # reversible specific capacity
 
-                              150.0,                # total thickness cathode
-                              0.2,                  # porosity
+                                      150.0,        # total thickness cathode
+                                      0.2,          # porosity
 
-                              0.0,                  # Extra length                                   mm
+                                      0.0,          # Extra length                                   mm
 
-                              15.0,                 # Pos foil (Al) thickness                      microns
-                              2.7,                  # Pos foil (Al) density                         g/cm3
+                                      15.0,         # Pos foil (Al) thickness                      microns
+                                      2.7,          # Pos foil (Al) density                         g/cm3
 
-                              7.0,                  # Tab thickness                                microns
-                              6.0,                  # Tab width                                      mm
-                              8.88,                 # Tab density (Ni)                              g/cm3
-                              )
+                                      7.0,          # Tab thickness                                microns
+                                      6.0,          # Tab width                                      mm
+                                      8.88,         # Tab density (Ni)                              g/cm3
+                                      )
 
+
+nmc622_default()  = struct_electrode("NMC622",      # Chemistry type
+
+                                      0.03,         # binder weight fraction
+                                      0.03,         # conductive weight fraction
+
+                                      4.8,          # AM density
+                                      1.77,         # binder density
+                                      1.77,         # conductive density
+
+                                      190.0,        # first charge specific capacity
+                                      171.0,        # reversible specific capacity
+
+                                      150.0,        # total thickness cathode
+                                      0.2,          # porosity
+
+                                      0.0,          # Extra length                                   mm
+
+                                      15.0,         # Pos foil (Al) thickness                      microns
+                                      2.7,          # Pos foil (Al) density                         g/cm3
+
+                                      7.0,          # Tab thickness                                microns
+                                      6.0,          # Tab width                                      mm
+                                      8.88          # Tab density (Ni)                              g/cm3
+
+                                    )
+
+lfp_default()  = struct_electrode(   "LFP",      # Chemistry type
+
+                                      0.03,         # binder weight fraction
+                                      0.03,         # conductive weight fraction
+
+                                      3.6,          # AM density
+                                      1.77,         # binder density
+                                      1.77,         # conductive density
+
+                                      160.0,        # first charge specific capacity
+                                      150.0,        # reversible specific capacity
+
+                                      150.0,        # total thickness cathode
+                                      0.2,          # porosity
+
+                                      0.0,          # Extra length                                   mm
+
+                                      15.0,         # Pos foil (Al) thickness                      microns
+                                      2.7,          # Pos foil (Al) density                         g/cm3
+
+                                      7.0,          # Tab thickness                                microns
+                                      6.0,          # Tab width                                      mm
+                                      8.88          # Tab density (Ni)                              g/cm3
+
+                                    )
 
 graphite_default() = struct_electrode("Graphite",           # Chemistry type
 
@@ -51,27 +103,28 @@ graphite_default() = struct_electrode("Graphite",           # Chemistry type
                           )
 
 
-cell_default() = struct_cell_general("Cyl",           # Form factor                           ["Cyl","Pris","Pou"]
-                                   "18650",         # Cell size                                    5 digits
-                                   0.01,             # dimensional_delta                               %
-                                   0.05,             # canister thickness                             (mm)
-                                   7.7,             # Stainless Steel density                        g/cm3
+cell(;form_factor="Cyl",size="18650",dimensional_delta=0.01,can_th=0.05,can_rho=7.7,sep_th=20.0,sep_rho=1.2,sep_por=0.4,v_nominal=3.6,electrolyte="EC:DMC",
+      electrolyte_rho=1.2,NP=1.15,anode=graphite_default(),cathode=nca_default,verbosity=0) = struct_cell_general(form_factor,           # Form factor                           ["Cyl","Pris","Pou"]
+                                   size,         # Cell size                                    5 digits
+                                   dimensional_delta,             # dimensional_delta                               %
+                                   can_th,             # canister thickness                             (mm)
+                                   can_rho,             # Stainless Steel density                        g/cm3
 
-                                   20.0,            # Separator thickness                          microns
-                                   1.2,             # Separator density                             g/cm3
-                                   0.4,             # Separator porosity
+                                   sep_th,            # Separator thickness                          microns
+                                   sep_rho,             # Separator density                             g/cm3
+                                   sep_por,             # Separator porosity
 
-                                   3.6,             # Nominal voltage                                 V
+                                   v_nom,             # Nominal voltage                                 V
 
-                                   "EC:DMC",        # Electrolyte name
-                                   1.2,             # Electrolyte density                           g/cm3
+                                   electrolyte_name,        # Electrolyte name
+                                   electrolyte_rho,             # Electrolyte density                           g/cm3
 
-                                   1.15,            # N to P ratio
+                                   NP,            # N to P ratio
 
 
-                                   graphite_default(),      # Anode Struct
-                                   nca_default(),    # Cathode Struct
-                                   0                # Design Verbosity
+                                   anode,      # Anode Struct
+                                   cathode,    # Cathode Struct
+                                   verbosity                # Design Verbosity
                                    )
 
 

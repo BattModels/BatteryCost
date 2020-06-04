@@ -6,7 +6,7 @@
 =#
 
 
-function OEM(input_OEM)
+function OEM(input_OEM,breakdown,materials_breakdown)
 
 
     cost_per_cell_positive_active_material              = input_OEM[1]                       ##   $/cell
@@ -228,6 +228,8 @@ function OEM(input_OEM)
     warrant_cost_per_unit
 
 
+
+
     dollars_per_kWh = cell_price_to_OEM / cell_energy_storage
 
 
@@ -326,6 +328,39 @@ function OEM(input_OEM)
         print("\nJulia dollars/kWh                  = ", dollars_per_kWh)
     end
 
+    if breakdown
+        return total_unit_cost_all_materials  ,
+        total_direct_labor_per_unit           ,
+        variable_overhead_per_unit            ,
+        GSA_per_unit                          ,
+        R_and_D_per_unit                      ,
+        depreciation_per_unit                 ,
+        profits_after_taxes_per_unit          ,
+        warrant_cost_per_unit                 ,
+        cell_energy_storage
 
-    return dollars_per_kWh, mfg_capacity
+
+    elseif materials_breakdown
+        cathode_cost =cost_per_cell_positive_active_material+
+            cost_per_cell_positive_current_collector+
+            cost_per_cell_positive_conductive+
+            cost_per_cell_binder_solvent_NMP+
+            cost_per_cell_positive_binder
+
+        anode_cost = cost_per_cell_negative_active_material+
+            cost_per_cell_negative_binder+
+            cost_per_cell_negative_conductive+
+            cost_per_cell_negative_current_collector
+
+        electrolyte_cost = cost_per_cell_electrolyte
+
+        others_cost = cost_per_cell_cell_container+
+            cost_per_cell_negative_terminal_assembly+
+            cost_per_cell_positive_terminal_assembly+
+            cost_per_cell_separator
+        
+        return cathode_cost,anode_cost,electrolyte_cost,others_cost
+    else
+        return dollars_per_kWh, mfg_capacity
+    end
 end
