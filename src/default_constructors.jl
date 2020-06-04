@@ -51,27 +51,28 @@ graphite_default() = struct_electrode("Graphite",           # Chemistry type
                           )
 
 
-cell_default() = struct_cell_general("Cyl",           # Form factor                           ["Cyl","Pris","Pou"]
-                                   "18650",         # Cell size                                    5 digits
-                                   0.01,             # dimensional_delta                               %
-                                   0.05,             # canister thickness                             (mm)
-                                   7.7,             # Stainless Steel density                        g/cm3
+cell(;form_factor="Cyl",size="18650",dimensional_delta=0.01,can_th=0.05,can_rho=7.7,sep_th=20.0,sep_rho=1.2,sep_por=0.4,v_nominal=3.6,electrolyte="EC:DMC",
+      electrolyte_rho=1.2,NP=1.15,anode=graphite_default(),cathode=nca_default,verbosity=0) = struct_cell_general(form_factor,           # Form factor                           ["Cyl","Pris","Pou"]
+                                   size,         # Cell size                                    5 digits
+                                   dimensional_delta,             # dimensional_delta                               %
+                                   can_th,             # canister thickness                             (mm)
+                                   can_rho,             # Stainless Steel density                        g/cm3
 
-                                   20.0,            # Separator thickness                          microns
-                                   1.2,             # Separator density                             g/cm3
-                                   0.4,             # Separator porosity
+                                   sep_th,            # Separator thickness                          microns
+                                   sep_rho,             # Separator density                             g/cm3
+                                   sep_por,             # Separator porosity
 
-                                   3.6,             # Nominal voltage                                 V
+                                   v_nom,             # Nominal voltage                                 V
 
-                                   "EC:DMC",        # Electrolyte name
-                                   1.2,             # Electrolyte density                           g/cm3
+                                   electrolyte_name,        # Electrolyte name
+                                   electrolyte_rho,             # Electrolyte density                           g/cm3
 
-                                   1.15,            # N to P ratio
+                                   NP,            # N to P ratio
 
 
-                                   graphite_default(),      # Anode Struct
-                                   nca_default(),    # Cathode Struct
-                                   0                # Design Verbosity
+                                   anode,      # Anode Struct
+                                   cathode,    # Cathode Struct
+                                   verbosity                # Design Verbosity
                                    )
 
 
