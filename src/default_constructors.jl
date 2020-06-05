@@ -103,8 +103,8 @@ graphite_default() = struct_electrode("Graphite",           # Chemistry type
                           )
 
 
-cell(;form_factor="Cyl",size="18650",dimensional_delta=0.01,can_th=0.05,can_rho=7.7,sep_th=20.0,sep_rho=1.2,sep_por=0.4,v_nominal=3.6,electrolyte="EC:DMC",
-      electrolyte_rho=1.2,NP=1.15,anode=graphite_default(),cathode=nca_default,verbosity=0) = struct_cell_general(form_factor,           # Form factor                           ["Cyl","Pris","Pou"]
+cell(;form_factor="Cyl",size="18650",dimensional_delta=0.01,can_th=0.05,can_rho=7.7,sep_th=20.0,sep_rho=1.2,sep_por=0.4,v_nom=3.6,electrolyte_name="EC:DMC",
+      electrolyte_rho=1.2,NP=1.15,anode=graphite_default(),cathode=nca_default(),verbosity=0) = struct_cell_general(form_factor,           # Form factor                           ["Cyl","Pris","Pou"]
                                    size,         # Cell size                                    5 digits
                                    dimensional_delta,             # dimensional_delta                               %
                                    can_th,             # canister thickness                             (mm)
