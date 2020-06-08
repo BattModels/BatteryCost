@@ -1,10 +1,9 @@
 include("../src/PBCM.jl")
 
-cell_general = cell_default()
+cell_general = cell()
 cell_design_op = cylindrical_cell_designer(cell_general)
 cost = cost_default()
-
-include("../unit_conversion_file.jl")
+cell_general, cost = convert_all(cell_general, cost, mult)
 
 
 using DiffEqSensitivity
@@ -26,7 +25,7 @@ cost_sep_intrvl    = [cost_sep  * (1 - (per/100)) , cost_sep * (1  + (per/100))]
 
 function gsa_cost(arr)
 
-    cost.general_costs.no_units_mfg   = converter([arr[1], mult.units_mfg[2], mult.units_mfg[3]])
+    cost.general_costs.no_units_mfg   = converter(arr[1], mult.units_mfg)
     cost.cell_costs.cathode.AM[1]     = arr[2]
     cost.cell_costs.anode.AM[1]       = arr[3]
     cost.cell_costs.seperator_cost[1] = arr[4]

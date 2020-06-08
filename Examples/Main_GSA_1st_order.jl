@@ -1,11 +1,11 @@
 include("../src/PBCM.jl")
 
-cell_general = cell_default()
+cell_general = cell()
 cell_design_op = cylindrical_cell_designer(cell_general)
 cost = cost_default()
+cell_general, cost = convert_all(cell_general, cost, mult)
 
-include("../unit_conversion_file.jl")
-
+using PyPlot
 using DiffEqSensitivity
 
 per = 10
@@ -29,9 +29,9 @@ cost_pos_AM_intrvl = [cost_pos_AM*(1 - (per/100)) , cost_pos_AM*(1 + (per/100))]
 function gsa_cost(arr)
 
     cell_general.cathode.por        = arr[1]
-    cell_general.cathode.th         = converter([arr[2], mult.pos_th[2], mult.pos_th[3]])
-    cell_general.anode.th           = converter([arr[3], mult.neg_th[2], mult.neg_th[3]])
-    cost.general_costs.no_units_mfg = converter([arr[4], mult.units_mfg[2], mult.units_mfg[3]])
+    cell_general.cathode.th         = converter(arr[2], mult.pos_th)
+    cell_general.anode.th           = converter(arr[3], mult.neg_th)
+    cost.general_costs.no_units_mfg = converter(arr[4], mult.units_mfg)
     cost.cell_costs.cathode.AM[1]   = arr[5]
 
     dollars_kWh = cost_calc(cell_general, cost, system="Cell", cost_verbosity=0)[1]
