@@ -1,17 +1,17 @@
 include("../src/PBCM.jl")
 
-cell_general = cell_default()
+cell_general = cell()
 cell_design_op = cylindrical_cell_designer(cell_general)
 cost = cost_default()
+cell_general, cost = convert_all(cell_general, cost, mult)
 
-include("../unit_conversion_file.jl")
 
 using PyPlot
 using ForwardDiff
 
 using3D()
 
-cost.general_costs.no_units_mfg = converter([20.0, mult.units_mfg[2], mult.units_mfg[3]])
+cost.general_costs.no_units_mfg = converter(20.0, mult.units_mfg)
 cost.cell_costs.cathode.AM[1]
 n = 35
 
@@ -36,7 +36,7 @@ legend_data = []
 for i in 1:n, j in 1:n
 
     cell_general.cathode.por  = poro[j]
-    cell_general.cathode.th   = converter([ thic[i], mult.pos_th[2], mult.pos_th[3]])
+    cell_general.cathode.th   = converter(thic[i], mult.pos_th)
 
 
     dollars_kWh, MWh_per_year = cost_calc(cell_general, cost, system="Cell", cost_verbosity=0)
@@ -46,8 +46,8 @@ end
 
 
 clf()
-fig = figure("pyplot_surfaceplot",figsize=(8,8))
-plot_surface(xgrid, ygrid, z, rstride=3,edgecolors="r", cstride=3, cmap=ColorMap("gray"), alpha=1, linewidth=0.25)
+fig = figure("pyplot_surfaceplot", figsize=(8,8))
+plot_surface(xgrid, ygrid, z, rstride=1, edgecolors="b", cstride=1, cmap=ColorMap("gray"), alpha=0.5, linewidth=0.1)
 xlabel("Cathode Thickness (um)")
 ylabel("Porosity")
 zlabel("dollars/kWh")
