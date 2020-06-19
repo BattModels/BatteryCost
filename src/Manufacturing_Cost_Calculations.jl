@@ -344,7 +344,7 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
 
 
 
-function cost_calc(cell, cost ; system, cost_verbosity,breakdown=false,materials_breakdown=false)
+function cost_calc(cell, cost ; system="Cell", cost_verbosity=0,breakdown=false,materials_breakdown=false)
 
 
   #Inputs from Design Routine
