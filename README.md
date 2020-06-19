@@ -9,4 +9,4 @@ It was developed in the Viswanathan Group at Carnegie Mellon University. The mod
 
 This model is part of the BatteryModels.jl Ecosystem.
 
-![](assets/batteryModelswb.png?raw=true)
+![](assets/batteryModelswb2.png?raw=true)
