@@ -55,7 +55,6 @@ mutable struct struct_cell_general
 
     anode::struct_electrode
     cathode::struct_electrode
-    design_verbosity::Int64
 end
 
 
@@ -138,7 +137,7 @@ function np_designer(electrode,capacity_loading)
 end
 
 
-function cylindrical_cell_designer(cell)
+function cylindrical_cell_designer(cell;verbosity=0)
     cathode = cell.cathode
     anode = cell.anode
 
@@ -274,7 +273,7 @@ function cylindrical_cell_designer(cell)
 
                         ###################################### Verbosity #####################################
 
-    if cell.design_verbosity == 1
+    if verbosity == 1
         print("\n")
         print("\n\n\n******************************** \t\t\t\t\t\t\t\tDesign Report \t\t\t\t\t\t\t\t********************************")
 
