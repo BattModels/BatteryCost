@@ -55,7 +55,6 @@ mutable struct struct_cell_general
 
     anode::struct_electrode
     cathode::struct_electrode
-    design_verbosity::Int64
 end
 
 
@@ -138,7 +137,7 @@ function np_designer(electrode,capacity_loading)
 end
 
 
-function cylindrical_cell_designer(cell)
+function cylindrical_cell_designer(cell;verbosity=0)
     cathode = cell.cathode
     anode = cell.anode
 
@@ -203,13 +202,13 @@ function cylindrical_cell_designer(cell)
    mass_neg_bind, neg_AM_wt_fr, total_coated_length_anode, neg_mass_loading,
    volm_neg_electrode  = electrode_geometry(anode,volm_jellyroll, jellyroll_length,height_jellyroll)
 
-   if cell_general.cathode.por > 1 || cell_general.cathode.por < 0
-        # print(cell_general.cathode.por)
+   if cell.cathode.por > 1 || cell.cathode.por < 0
+        # print(cell.cathode.por)
        @error "Invalid cathode porosity value"
    end
 
-    if cell_general.anode.por > 1 || cell_general.anode.por < 0
-        print("\n1. Neg por",cell_general.anode.por)
+    if cell.anode.por > 1 || cell.anode.por < 0
+        print("\n1. Neg por",cell.anode.por)
        @error "Invalid anode porosity value"
    end
 
@@ -228,7 +227,7 @@ function cylindrical_cell_designer(cell)
            (total_coated_area_anode   * ((cell.anode.th - cell.anode.CC_th)/2.0)) * cell.anode.por +
            2* sep_area * (cell.sep_th) * (cell.sep_por)                                                       # cm3
 
-    electrolyte_mass = electrolyte_volm * cell_general.electrolyte_rho                                        # grams
+    electrolyte_mass = electrolyte_volm * cell.electrolyte_rho                                        # grams
 
 
     volume_canister_material = pi * (
@@ -237,7 +236,7 @@ function cylindrical_cell_designer(cell)
 
 
 
-    mass_of_cannister = volume_canister_material * cell_general.can_rho                                       # grams
+    mass_of_cannister = volume_canister_material * cell.can_rho                                       # grams
 
 
     mass_tab = cathode.tab_rho * (cathode.tab_th) * (height_of_tab) * (cathode.tab_width)                     # grams
@@ -269,12 +268,12 @@ function cylindrical_cell_designer(cell)
 
     reversible_capacity = min(reversible_capacity_anode, reversible_capacity_cathode)                           # Ah
 
-    energy_cell = reversible_capacity * cell_general.nom_volt                                                   # Wh
+    energy_cell = reversible_capacity * cell.nom_volt                                                   # Wh
 
 
                         ###################################### Verbosity #####################################
 
-    if cell_general.design_verbosity == 1
+    if verbosity == 1
         print("\n")
         print("\n\n\n******************************** \t\t\t\t\t\t\t\tDesign Report \t\t\t\t\t\t\t\t********************************")
 

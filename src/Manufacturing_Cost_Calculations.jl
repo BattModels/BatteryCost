@@ -119,7 +119,7 @@ function electrolyte(electrolyte_volm, cell_costs, cell_yield, total_units_mfg_p
 end
 
 
-function ta(total_units_mfg_per_year, cell_yield, electrode_costs, struct_baseline)
+function ta(total_units_mfg_per_year, cell_yield, electrode_costs, struct_baseline,cost)
 
   # Direct Material Costs
 
@@ -137,7 +137,7 @@ function ta(total_units_mfg_per_year, cell_yield, electrode_costs, struct_baseli
 
   end
 
-function can_al_condr(total_units_mfg_per_year, cell_yield, cell_costs, struct_baseline)
+function can_al_condr(total_units_mfg_per_year, cell_yield, cell_costs, struct_baseline,cost)
 
   # Direct Material Costs
   # Annual Cell Materials Rates
@@ -344,7 +344,7 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
 
 
 
-function cost_calc(cell, cost ; system, cost_verbosity,breakdown=false,materials_breakdown=false)
+function cost_calc(cell, cost ; system="Cell", cost_verbosity=0,breakdown=false,materials_breakdown=false)
 
 
   #Inputs from Design Routine
@@ -499,16 +499,16 @@ function cost_calc(cell, cost ; system, cost_verbosity,breakdown=false,materials
 
   total_positive_terminal_assemblies,
   unit_cost_positive_terminal,
-  cost_per_cell_positive_terminal_assembly = ta(total_units_mfg_per_year, cost.cell_costs.cell_yield, cost.cell_costs.cathode, struct_baseline)
+  cost_per_cell_positive_terminal_assembly = ta(total_units_mfg_per_year, cost.cell_costs.cell_yield, cost.cell_costs.cathode, struct_baseline,cost)
 
   total_negative_terminal_assemblies,
   unit_cost_negative_terminal,
-  cost_per_cell_negative_terminal_assembly = ta(total_units_mfg_per_year, cost.cell_costs.cell_yield, cost.cell_costs.anode, struct_baseline)
+  cost_per_cell_negative_terminal_assembly = ta(total_units_mfg_per_year, cost.cell_costs.cell_yield, cost.cell_costs.anode, struct_baseline,cost)
 
   total_cell_containers,
   total_aluminum_thermal_conductors,
   unit_cost_cell_container,
-  cost_per_cell_cell_container = can_al_condr(total_units_mfg_per_year,cost.cell_costs.cell_yield, cost.cell_costs, struct_baseline)
+  cost_per_cell_cell_container = can_al_condr(total_units_mfg_per_year,cost.cell_costs.cell_yield, cost.cell_costs, struct_baseline,cost)
 
 
 
@@ -811,6 +811,6 @@ function cost_calc(cell, cost ; system, cost_verbosity,breakdown=false,materials
     # It is called at the bottom of this file or the before the cost function ends.
 
 
-    OEM(inputs_to_OEM,breakdown,materials_breakdown)
+    OEM(inputs_to_OEM,cost,breakdown,materials_breakdown)
 
 end

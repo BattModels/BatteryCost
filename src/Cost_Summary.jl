@@ -6,7 +6,7 @@
 =#
 
 
-function OEM(input_OEM,breakdown,materials_breakdown)
+function OEM(input_OEM,cost,breakdown,materials_breakdown)
 
 
     cost_per_cell_positive_active_material              = input_OEM[1]                       ##   $/cell
@@ -358,7 +358,7 @@ function OEM(input_OEM,breakdown,materials_breakdown)
             cost_per_cell_negative_terminal_assembly+
             cost_per_cell_positive_terminal_assembly+
             cost_per_cell_separator
-        
+
         return cathode_cost,anode_cost,electrolyte_cost,others_cost
     else
         return dollars_per_kWh, mfg_capacity
