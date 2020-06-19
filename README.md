@@ -7,6 +7,6 @@ It was developed in the Viswanathan Group at Carnegie Mellon University. The mod
 
 
 
-This model is part of the BatteryModels.jl Ecosystem.
+This model is part of the BatteryModels.jl ecosystem.
 
 ![](assets/batteryModelswb2.png?raw=true)
