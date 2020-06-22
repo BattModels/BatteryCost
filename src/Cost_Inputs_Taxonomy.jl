@@ -110,21 +110,3 @@ mutable struct struct_cost
     ovhd_rate::struct_ovhd_rate
 
 end
-
-
-
-
-#=
-Data File
-nmc666.jld2
-struct material_cost_struct
-    cost_positive_active_material
-    ...
-end
-
-cost_material = material_cost_struct(cost_pos_act_mat,...)
-using JLD2
-@save "filename.jld2" cost_material
-include("struct_file.jl")
-@load "filename.jld2"
-=#
