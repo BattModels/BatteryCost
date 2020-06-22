@@ -15,7 +15,6 @@ cell_general.cathode.por = 0.3
 cost.cell_costs.anode.AM[1] = 10.57
 cost.cell_costs.cathode.AM[1] = 17.0
 cell_general.cathode.th       = converter(150.0, mult.pos_th)
-cell_general.design_verbosity = 0
 cost_calc(cell_general, cost, system="Cell", cost_verbosity = 0)
 
 
