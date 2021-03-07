@@ -28,9 +28,9 @@ mutable struct struct_electrode
        CC_th::Float64                                 # Current Collector Thickness                   microns   --> cm
        CC_rho::Float64                                # Current Collector                               g/cm3
 
-       tab_th::Float64
-       tab_width::Float64
-       tab_rho::Float64
+       tab_th::Float64                                # Tab thickness
+       tab_width::Float64                             # Tab width
+       tab_rho::Float64                               # Tab Density
 end
 
 

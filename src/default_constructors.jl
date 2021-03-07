@@ -1,18 +1,19 @@
-
+#TODO: Add Keyword Constructors for all datatypes
+#TODO MAYBE: Create + methods to build cells
 nca_default() = struct_electrode(
                                   "NCA",                # Chemistry type
                                   0.03,                 # binder weight fraction
-                                  0.03,
+                                  0.03,                 # conductive material weight fraction
                                   4.71,                 # AM density
                                   1.77,                 # binder density
-                                  1.77,
+                                  1.77,                 # conductive material density
                                   192.0,                # first charge specific capacity
-                                  180.0,
+                                  180.0,                # reversible specific capacity
                                   150.0,                # total thickness cathode
-                                  0.2,
-                                  0.0,
+                                  0.2,                  # porosity
+                                  0.0,                  # extra length
                                   15.0,                 # Pos foil (Al) thickness                      microns
-                                  2.7,
+                                  2.7,                  # Positive foil density
                                   7.0,                  # Tab thickness                                microns
                                   6.0,                  # Tab width                                      mm
                                   8.88,                 # Tab density (Ni)                              g/cm3
@@ -21,39 +22,39 @@ nca_default() = struct_electrode(
 nmc622_default() = struct_electrode(
                                     "NMC622",     # Chemistry type
                                     0.03,         # binder weight fraction
-                                    0.03,
+                                    0.03,         # Conductive material weight fraction
                                     4.8,          # AM density
                                     1.77,         # binder density
-                                    1.77,
+                                    1.77,         # conductive material density
                                     190.0,        # first charge specific capacity
-                                    171.0,
+                                    171.0,        # reversible specific capactity
                                     150.0,        # total thickness cathode
-                                    0.2,
-                                    0.0,
+                                    0.2,          # porosity
+                                    0.0,          # extra length
                                     15.0,         # Pos foil (Al) thickness                      microns
-                                    2.7,
+                                    2.7,          # Pos foil density
                                     7.0,          # Tab thickness                                microns
                                     6.0,          # Tab width                                      mm
-                                    8.88,
+                                    8.88,         # Tab density
                                   )
 
 lfp_default() = struct_electrode(
                                   "LFP",        # Chemistry type
                                   0.03,         # binder weight fraction
-                                  0.03,
+                                  0.03,         # conductive material weight fraction
                                   3.6,          # AM density
                                   1.77,         # binder density
-                                  1.77,
+                                  1.77,         # conductive material density
                                   160.0,        # first charge specific capacity
-                                  150.0,
+                                  150.0,        # reversible specific capacity
                                   150.0,        # total thickness cathode
-                                  0.2,
-                                  0.0,
+                                  0.2,          # porosity
+                                  0.0,          # extra length
                                   15.0,         # Pos foil (Al) thickness                      microns
-                                  2.7,
+                                  2.7,          # Pos foil density
                                   7.0,          # Tab thickness                                microns
                                   6.0,          # Tab width                                      mm
-                                  8.88,
+                                  8.88,         # Tab density
                                 )
 
 
