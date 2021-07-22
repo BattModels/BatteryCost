@@ -1,0 +1,7 @@
+name = "BatteryCost"
+uuid = "73db664b-9391-4203-a72d-a58b3ac564bd"
+authors = ["Alec Bills <abills@andrew.cmu.edu>", "Abhinav Misalkar", "Shashank Sripad", "Venkat Viswanathan"]
+version = "0.1.0"
+
+[deps]
+JSON2 = "2535ab7d-5cd8-5a07-80ac-9b1792aadce3"
