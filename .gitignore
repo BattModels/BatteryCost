@@ -4,3 +4,5 @@ Examples/.ipynb_checkpoints/*
 .vscode/
 
 *.code-workspace
+
+Manifest.toml

@@ -1,4 +1,4 @@
-include("../src/PBCM.jl")
+using BatteryCost
 using Test
 cell1 = cell()
 cost1 = cost_default()
