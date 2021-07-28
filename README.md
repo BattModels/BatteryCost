@@ -11,4 +11,4 @@ Popular piece in The Conversation: https://theconversation.com/the-road-to-elect
 
 This model is part of the BatteryModels.jl ecosystem.
 
-![](assets/batteryModelswb2.png?raw=true)
+![](assets/batteryModelswb3.png?raw=true)
