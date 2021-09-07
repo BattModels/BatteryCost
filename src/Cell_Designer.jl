@@ -164,8 +164,8 @@ function anode_free_designer(cell;verbosity=0)
     energy_cell = reversible_capacity * cell.nom_volt
 
     return struct_cell_design_op(
-        rev_cap,
-        energy,
+        reversible_capacity,
+        energy_cell,
         mass_cathode_AM,
         mass_anode_AM,
         pos_CC_area,
