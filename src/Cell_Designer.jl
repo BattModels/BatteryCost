@@ -140,9 +140,9 @@ end
 function anode_free_designer(cell;verbosity=0)
     cathode = cell.cathode
 
-    external_height_of_cell = (parse(Float64, SubString(cell.size, 5:6)))/10.0 #note that these are in mm
+    external_height_of_cell = (parse(Float64, SubString(cell.size, 5:6))) #note that these are in mm
     
-    external_width_of_cell = (parse(Float64, SubString(cell.size, 3:4)))/10.0 #in mm
+    external_width_of_cell = (parse(Float64, SubString(cell.size, 3:4))) #in mm
 
     num_layers = (parse(Float64, SubString(cell.size, 1:2)))/10.0 #in mm
     cell_area = external_width_of_cell*external_height_of_cell * num_layers
