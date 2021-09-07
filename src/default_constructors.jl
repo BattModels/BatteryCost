@@ -116,7 +116,7 @@ cell(;form_factor="Cyl", size="18650", dimensional_delta=0.01,
 
 
 cathode_default_cost() = struct_electrode_costs(
-                                                [24.0, 0.9],            # Cost of Positive Active Material                       # USD/kg
+                                                [2.6, 0.9],            # Cost of Positive Active Material                       # USD/kg
                                                 [6.6, 1.0],             # Cost of Positive Conductive                            # USD/kg
                                                 [9.5, 1.0],             # Cost of Positive Binder                                # USD/kg
                                                 [3.1, 1.0],             # Cost of Positive Binder Solvent                        # USD/kg
