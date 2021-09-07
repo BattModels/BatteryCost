@@ -137,6 +137,57 @@ function np_designer(electrode,capacity_loading)
     return electrode
 end
 
+function pouch_designer(cell;verbosity=0)
+    cathode = cell.cathode
+
+    external_height_of_cell = (parse(Float64, SubString(cell.size, 5:6))) #note that these are in mm
+    
+    external_width_of_cell = (parse(Float64, SubString(cell.size, 3:4))) #in mm
+
+    num_layers = (parse(Float64, SubString(cell.size, 1:2)))/10.0 #in mm
+    cell_area = external_width_of_cell*external_height_of_cell * num_layers
+    cathode_coating_thickness = cell.cathode.th-cell.cathode.CC_th
+    cathode = cell.cathode
+    anode = cell.anode
+    mass_cathode_AM = cathode.AM_rho*(1-cathode.bind_wt_fr-cathode.cond_wt_fr)*(1-cathode.por)*cathode_coating_thickness*cell_area
+    mass_anode_AM = anode.AM_rho*(1-anode.bind_wt_fr-anode.cond_wt_fr)*(1-anode.por)*anode_coating_thickness*cell_area
+    pos_CC_area = deepcopy(cell_area)
+    neg_CC_area = deepcopy(pos_CC_area)
+    sep_area = deepcopy(pos_CC_area)
+    electrolyte_volm_cathode = cathode.por*cell_area*cathode.th
+    electrolyte_volm_sep = cell.sep_por*cell.sep_th*cell_area
+    electrolyte_volm_anode = anode.por*cell_area*anode.th
+    electrolyte_volm = electrolyte_volm_cathode+electrolyte_volm_sep
+    mass_tab = 0.
+    mass_of_cannister = 0.
+    total_coated_area_cathode = cell_area
+    pos_AM_wt_fr = (1-cathode.bind_wt_fr-cathode.cond_wt_fr)
+    neg_AM_wt_fr = (1-anode.bind_wt_fr-anode.cond_wt_fr)
+    reversible_capacity = cathode.rev_sp_cap*mass_cathode_AM
+    energy = reversible_capacity*cell.nom_volt                          # Ah
+
+    energy_cell = reversible_capacity * cell.nom_volt
+
+    return struct_cell_design_op(
+        reversible_capacity,
+        energy_cell,
+        mass_cathode_AM,
+        mass_anode_AM,
+        pos_CC_area,
+        neg_CC_area,
+        sep_area,
+        electrolyte_volm,
+        mass_tab,
+        mass_of_cannister,
+        total_coated_area_cathode,
+        pos_AM_wt_fr,
+        neg_AM_wt_fr
+    )
+
+
+
+end
+
 function anode_free_designer(cell;verbosity=0)
     cathode = cell.cathode
 
