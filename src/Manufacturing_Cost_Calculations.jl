@@ -160,7 +160,7 @@ end
 function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area_per_year,
                        number_of_cells_adjusted_for_yield, positive_active_material_kg_per_year,
                        negative_active_material_kg_per_year, total_positive_binder_solvent_evaporated,
-                       total_negative_binder_solvent_evaporated)
+                       total_negative_binder_solvent_evaporated,anode_free)
 
       baseline_cell_assembly_data = cost.manufacturing_costs
 
@@ -179,6 +179,9 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
       dry_room_area = 0.0
 
       process_names = fieldnames(typeof(baseline_cell_assembly_data))
+      if anode_free
+        process_names = setdiff(process_names,[:neg_electrode_coat])
+      end
 
 
       dry_room_processes = [:cell_stacking,:CC_welding,
@@ -648,7 +651,7 @@ function cost_calc(cell, cost ; system="Cell", cost_verbosity=0,breakdown=false,
   labor_data = cell_assembly(cell_design_op.rev_cap, cost, energy_kwh_per_year,  electrode_area_per_year,
                               number_of_cells_adjusted_for_yield, positive_active_material_kg_per_year,
                               negative_active_material_kg_per_year, total_positive_binder_solvent_evaporated,
-                              total_negative_binder_solvent_evaporated)
+                              total_negative_binder_solvent_evaporated,anode_free)
 
   # print("\n\n")
   # print("Process count: ", count)
