@@ -179,11 +179,11 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
       dry_room_area = 0.0
 
       process_names = fieldnames(typeof(baseline_cell_assembly_data))
-      println(process_names)
-      if anode_free
-        process_names = setdiff(process_names,[:neg_electrode_coat])
-      end
-      println(process_names)
+      #println(process_names)
+      #if anode_free
+      #  process_names = setdiff(process_names,[:neg_electrode_coat])
+      #end
+      #println(process_names)
 
       dry_room_processes = [:cell_stacking,:CC_welding,
                             :cell_insertion_container,
