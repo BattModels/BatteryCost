@@ -37,6 +37,7 @@ end
 mutable struct struct_cell_general
     form_factor::String              # ["Cyl","Pris","Pou"]
     size::String                     # ["18650", "21700", etc]
+                                     # ["num_layers(2 digits)""height""width"]
     dimensional_delta::Float64
     can_th::Float64
     can_rho::Float64
@@ -139,10 +140,12 @@ end
 function anode_free_designer(cell;verbosity=0)
     cathode = cell.cathode
 
-    external_height_of_cell = (parse(Float64, SubString(cell.size, 3:4)))/10.0 #note that these are in mm
+    external_height_of_cell = (parse(Float64, SubString(cell.size, 5:6)))/10.0 #note that these are in mm
     
-    external_width_of_cell = (parse(Float64, SubString(cell.size, 1:2)))/10.0 #in mm
-    cell_area = external_width_of_cell*external_height_of_cell
+    external_width_of_cell = (parse(Float64, SubString(cell.size, 3:4)))/10.0 #in mm
+
+    num_layers = (parse(Float64, SubString(cell.size, 1:2)))/10.0 #in mm
+    cell_area = external_width_of_cell*external_height_of_cell * num_layers
     cathode_coating_thickness = cell.cathode.th-cell.cathode.CC_th
     cathode = cell.cathode
     mass_cathode_AM = cathode.AM_rho*(1-cathode.bind_wt_fr-cathode.cond_wt_fr)*(1-cathode.por)*cathode_coating_thickness*cell_area
