@@ -435,11 +435,47 @@ function cost_calc(cell, cost ; system="Cell", cost_verbosity=0,breakdown=false,
   cost_per_cell_positive_active_material = AM(cell_design_op.mass_cathode_AM, cost.cell_costs.cathode,
                                               total_units_mfg_per_year, cost.cell_costs.cathode.baseline_AM_required, cost.cell_costs.cell_yield)
 
-  mass_negative_active_material_per_cell,
-  total_negative_active_material,
-  unit_cost_negative_active_material,
-  cost_per_cell_negative_active_material = AM(cell_design_op.mass_anode_AM, cost.cell_costs.anode,
-                                              total_units_mfg_per_year, cost.cell_costs.anode.baseline_AM_required, cost.cell_costs.cell_yield)
+
+  if anode_free
+    mass_negative_active_material_per_cell = 0
+    total_negative_active_material = 0
+    unit_cost_negative_active_material=0
+    cost_per_cell_negative_active_material = 0
+
+    mass_conductive_negative_per_cell = 0
+    total_mass_negative_conductive = 0
+    unit_cost_carbon_black = 0
+    cost_per_cell_negative_conductive = 0
+
+    mass_binder_negative_per_cell = 0
+    total_mass_negative_binder = 0
+    unit_cost_negative_binder = 0
+    cost_per_cell_negative_binder = 0
+  else
+    mass_negative_active_material_per_cell,
+    total_negative_active_material,
+    unit_cost_negative_active_material,
+    cost_per_cell_negative_active_material = AM(cell_design_op.mass_anode_AM, cost.cell_costs.anode,
+                                                total_units_mfg_per_year, cost.cell_costs.anode.baseline_AM_required, cost.cell_costs.cell_yield)
+
+                                                mass_conductive_negative_per_cell,
+                                                total_mass_negative_conductive,
+                                                unit_cost_carbon_black,
+                                                cost_per_cell_negative_conductive = cond(cell_design_op.mass_anode_AM, cost.cell_costs.anode, cell.anode,
+                                                                                         total_units_mfg_per_year, cost.cell_costs.anode.baseline_AM_required,
+                                                                                         total_negative_active_material, cost.cell_costs.cell_yield)
+                                                                                         mass_binder_negative_per_cell,
+                                                                                         total_mass_negative_binder,
+                                                                                         unit_cost_negative_binder,
+                                                                                         cost_per_cell_negative_binder = bind(cell_design_op.mass_anode_AM, cost.cell_costs.anode, cell.anode,
+                                                                                                                              total_units_mfg_per_year, cost.cell_costs.anode.baseline_AM_required,
+                                                                                                                              total_negative_active_material, cost.cell_costs.cell_yield)
+
+    
+
+
+  end
+
 
 
   mass_conductive_positive_per_cell,
@@ -449,12 +485,7 @@ function cost_calc(cell, cost ; system="Cell", cost_verbosity=0,breakdown=false,
                                           total_units_mfg_per_year, cost.cell_costs.cathode.baseline_AM_required,
                                           total_positive_active_material, cost.cell_costs.cell_yield)
 
-  mass_conductive_negative_per_cell,
-  total_mass_negative_conductive,
-  unit_cost_carbon_black,
-  cost_per_cell_negative_conductive = cond(cell_design_op.mass_anode_AM, cost.cell_costs.anode, cell.anode,
-                                           total_units_mfg_per_year, cost.cell_costs.anode.baseline_AM_required,
-                                           total_negative_active_material, cost.cell_costs.cell_yield)
+
 
 
   mass_binder_positive_per_cell,
@@ -464,12 +495,7 @@ function cost_calc(cell, cost ; system="Cell", cost_verbosity=0,breakdown=false,
                                        total_units_mfg_per_year, cost.cell_costs.cathode.baseline_AM_required,
                                        total_positive_active_material, cost.cell_costs.cell_yield)
 
-  mass_binder_negative_per_cell,
-  total_mass_negative_binder,
-  unit_cost_negative_binder,
-  cost_per_cell_negative_binder = bind(cell_design_op.mass_anode_AM, cost.cell_costs.anode, cell.anode,
-                                       total_units_mfg_per_year, cost.cell_costs.anode.baseline_AM_required,
-                                       total_negative_active_material, cost.cell_costs.cell_yield)
+
 
 
 
