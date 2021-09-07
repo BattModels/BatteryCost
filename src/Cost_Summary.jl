@@ -1,6 +1,6 @@
 #=
     - Julia Version : 1.4.0
-    - Author        : Alexanders Bills and Abhinav Misalkar
+    - Author        : Alexander Bills and Abhinav Misalkar
     - Date          : 14th May 2020
     - Title         : Overhead Costs and Summary
 =#

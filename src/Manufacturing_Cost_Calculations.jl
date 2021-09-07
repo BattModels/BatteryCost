@@ -344,11 +344,15 @@ function cell_assembly(cell_capacity, cost, energy_kwh_per_year,  electrode_area
 
 
 
-function cost_calc(cell, cost ; system="Cell", cost_verbosity=0,breakdown=false,materials_breakdown=false)
+function cost_calc(cell, cost ; system="Cell", cost_verbosity=0,breakdown=false,materials_breakdown=false,anode_free=false)
 
 
   #Inputs from Design Routine
+  if !anode_free
   cell_design_op = cylindrical_cell_designer(cell)
+  else
+    cell_design_op = anode_free_designer(cell)
+  end
 
   cell_design_op.energy                       = converter(cell_design_op.energy                    , mult.energy_cell)
   cell_design_op.mass_cathode_AM              = converter(cell_design_op.mass_cathode_AM           , mult.mass_pos_AM)

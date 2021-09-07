@@ -136,6 +136,52 @@ function np_designer(electrode,capacity_loading)
     return electrode
 end
 
+function anode_free_designer(cell;verbosity=0)
+    cathode = cell.cathode
+
+    external_height_of_cell = (parse(Float64, SubString(cell.size, 3:4)))/10.0 #note that these are in mm
+    
+    external_width_of_cell = (parse(Float64, SubString(cell.size, 1:2)))/10.0 #in mm
+    cell_area = external_width_of_cell*external_height_of_cell
+    cathode_coating_thickness = cell.cathode.th-cell.cathode.CC_th
+    cathode = cell.cathode
+    mass_cathode_AM = cathode.AM_rho*(1-cathode.bind_wt_Fr-cathode.cond_wt_fr)*(1-cathode.por)*cathode_coating_thickness*cell_area
+    mass_anode_AM = 0.0
+    pos_CC_area = deepcopy(cell_area)
+    neg_CC_area = deepcopy(pos_CC_area)
+    sep_area = deepcopy(pos_CC_area)
+    electrolyte_volm_cathode = cathode.por*cell_area
+    electrolyte_volm_sep = cell.sep_por*cell.sep_th*cell_area
+    electrolyte_volm = electrolyte_volm_cathode+electrolyte_volm_sep
+    mass_tab = 0.
+    mass_of_cannister = 0.
+    total_coated_area_cathode = cell_area
+    pos_AM_wt_fr = 0.
+    neg_AM_wt_fr = 0.0
+    reversible_capacity = cathode.rev_sp_cap*mass_cathode_AM
+    energy = reversible_capacity*cell.nom_volt                          # Ah
+
+    energy_cell = reversible_capacity * cell.nom_volt
+
+    return struct_cell_design_op(
+        rev_cap,
+        energy,
+        mass_cathode_AM,
+        mass_anode_AM,
+        pos_CC_area,
+        neg_CC_area,
+        sep_area,
+        electrolyte_volm,
+        mass_tab,
+        mass_of_cannister,
+        total_coated_area_cathode,
+        pos_AM_wt_fr,
+        neg_AM_wt_fr
+    )
+
+
+
+end
 
 function cylindrical_cell_designer(cell;verbosity=0)
     cathode = cell.cathode
