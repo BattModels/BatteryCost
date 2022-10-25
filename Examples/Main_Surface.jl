@@ -1,9 +1,9 @@
-include("../src/PBCM.jl")
+using BatteryCost
 
 cell_general = cell()
-cell_design_op = cylindrical_cell_designer(cell_general)
-cost = cost_default()
-cell_general, cost = convert_all(cell_general, cost, mult)
+cell_design_op = BatteryCost.cylindrical_cell_designer(cell_general)
+cost = BatteryCost.cost_default()
+cell_general, cost = BatteryCost.convert_all(cell_general, cost, BatteryCost.mult)
 
 
 using PyPlot
@@ -11,7 +11,7 @@ using ForwardDiff
 
 using3D()
 
-cost.general_costs.no_units_mfg = converter(20.0, mult.units_mfg)
+cost.general_costs.no_units_mfg = BatteryCost.converter(20.0, BatteryCost.mult.units_mfg)
 cost.cell_costs.cathode.AM[1]
 n = 35
 
@@ -36,7 +36,7 @@ legend_data = []
 for i in 1:n, j in 1:n
 
     cell_general.cathode.por  = poro[j]
-    cell_general.cathode.th   = converter(thic[i], mult.pos_th)
+    cell_general.cathode.th   = BatteryCost.converter(thic[i], BatteryCost.mult.pos_th)
 
 
     dollars_kWh, MWh_per_year = cost_calc(cell_general, cost, system="Cell", cost_verbosity=0)

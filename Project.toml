@@ -4,4 +4,6 @@ authors = ["Alec Bills <abills@andrew.cmu.edu>", "Abhinav Misalkar", "Shashank S
 version = "0.1.0"
 
 [deps]
+ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
 JSON2 = "2535ab7d-5cd8-5a07-80ac-9b1792aadce3"
+PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee"
